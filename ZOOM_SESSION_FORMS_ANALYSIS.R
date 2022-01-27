@@ -48,19 +48,15 @@ df$Answer <- df$Answer %>% str_replace_all(';', '')
 
 # Analysis
 n_students = 29
-n_resondents = nrow(df)
-n_no_response = n_students - n_resondents
+n_respondents = nrow(df)
+n_no_response = n_students - n_respondents
 
 results_summary <- df %>%
   group_by(Answer) %>%
-  summarise(Count = n())
-
-results_summary <- results_summary %>%
+  summarise(Count = n()) %>%
   add_row(
     Answer = 'No Response',
-    Count = n_no_response)
-
-results_summary <- results_summary %>%
+    Count = n_no_response) %>%
   mutate(
     PercentOfClass = round((Count / n_students)*100, 0)
   )
